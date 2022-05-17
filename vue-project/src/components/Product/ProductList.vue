@@ -1,0 +1,45 @@
+<script setup lang="ts">
+import type { PropType } from "vue";
+import { APISettings } from "@/api/APISettings";
+import type { Product } from "@/core/models/Product";
+
+defineProps({
+  products: Array as PropType<Array<Product> | null>,
+  error: Object as PropType<Object | boolean>,
+  isFinished: Boolean,
+});
+</script>
+
+<template>
+  <div v-if="isFinished" class="m-6 grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+    <template v-for="product in products">
+      <div
+        v-if="product"
+        :key="product.id"
+        class="border rounded-lg bg-gray-100 dark:bg-slate-700 hover:shadow-lg shadow-md"
+      >
+        <router-link :to="`/products/${product.slug}`">
+          <div class="rounded-t-lg bg-white dark:bg-slate-900 pt-2 pb-2">
+            <img
+              class="crop mx-auto"
+              :src="`${APISettings.baseURL}${product.image.formats.thumbnail.url}`"
+              :alt="product.title"
+            />
+          </div>
+          <div class="pl-4 pr-4 pb-4 pt-4 rounded-lg">
+            <h4
+              class="mt-1 font-semibold text-base leading-tight truncate text-gray-700 dark:text-white"
+            >
+              {{ product.title }} sticker
+            </h4>
+            <div class="mt-1 text-sm text-gray-700 dark:text-slate-400">
+              {{ product.description }}
+            </div>
+          </div>
+        </router-link>
+      </div>
+    </template>
+  </div>
+</template>
+
+<style scoped></style>
