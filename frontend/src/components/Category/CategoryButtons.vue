@@ -2,7 +2,7 @@
 import { APISettings } from "@/api/APISettings";
 import type { Category } from "@/core/models/Category";
 import { useFetch } from "@vueuse/core";
-import CategoryButton from "./CategoryButton.vue";
+import MenuButton from "./MenuButton.vue";
 
 const { error, data: categories } = useFetch<Category>(
   APISettings.baseURL + "/categories"
@@ -10,18 +10,11 @@ const { error, data: categories } = useFetch<Category>(
 </script>
 
 <template>
-  <div>
-    <template v-for="category in categories">
-      <CategoryButton
-        v-if="!error"
-        :to="`/categories/${category.slug}`"
-        :key="category.id"
-        class=""
-      >
-        {{ category.name }}
-      </CategoryButton>
-    </template>
-  </div>
+  <template v-for="category in categories">
+    <MenuButton v-if="!error" :to="`/categories/${category.slug}`" :key="category.id">
+      {{ category.name }}
+    </MenuButton>
+  </template>
 </template>
 
 <style scoped></style>

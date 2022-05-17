@@ -4,7 +4,7 @@ import { RouterLink, type RouteLocationRaw } from "vue-router";
 
 defineProps({
   to: {
-      type: Object as PropType<RouteLocationRaw>,
+      type: String as PropType<RouteLocationRaw>,
       required: true
   }
 });

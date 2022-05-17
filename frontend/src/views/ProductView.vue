@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { APISettings } from "@/api/APISettings";
+import { useCart } from "@/composables/useCart";
 import { useMyFetch } from "@/composables/useMyFetch";
 import type { Product } from "@/core/models/Product";
 import { useRoute } from "vue-router";
@@ -9,6 +10,8 @@ const route = useRoute();
 const { data: product } = useMyFetch<Product>(
   APISettings.baseURL + "/products/" + route.params.id
 );
+
+const { addItem } = useCart();
 </script>
 
 <template>
@@ -17,6 +20,7 @@ const { data: product } = useMyFetch<Product>(
       <img
         :src="`${APISettings.baseURL}${product.image.formats.thumbnail.url}`"
         class="m-auto"
+        alt="product"
       />
     </div>
     <div class="w-full p-5 flex flex-col justify-between">
@@ -38,6 +42,7 @@ const { data: product } = useMyFetch<Product>(
         :data-item-description="product.description"
         :data-item-image="`${product.image.formats.thumbnail.url}`"
         :data-item-name="product.title"
+        @click="addItem"
       >
         Add to cart
       </button>
