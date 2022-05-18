@@ -3,6 +3,7 @@ import { APISettings } from "@/api/APISettings";
 import { useCart } from "@/composables/useCart";
 import { useMyFetch } from "@/composables/useMyFetch";
 import type { Product } from "@/core/models/Product";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -11,7 +12,11 @@ const { data: product } = useMyFetch<Product>(
   APISettings.baseURL + "/products/" + route.params.id
 );
 
-const { addItem } = useCart();
+const { nbItems, addItem } = useCart();
+
+const qtyInStock = computed(() =>
+  !!product.value ? product.value.quantityInStock - nbItems.value : 0
+);
 </script>
 
 <template>
@@ -31,6 +36,7 @@ const { addItem } = useCart();
           {{ product.title }} - ${{ product.price }}
         </h4>
         <div class="mt-1 text-gray-600 dark:text-gray-400">{{ product.description }}</div>
+        <div v-if="qtyInStock">Quantity in stock: {{ qtyInStock }}</div>
       </div>
 
       <button

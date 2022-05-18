@@ -3,7 +3,6 @@ import { RouterView } from "vue-router";
 import CategoryButtons from "@/components/Category/CategoryButtons.vue";
 import IconCart from "./components/icons/IconCart.vue";
 import { useCart } from "./composables/useCart";
-import MenuButton from "./components/Category/MenuButton.vue";
 
 const { nbItems } = useCart();
 </script>
@@ -38,9 +37,7 @@ const { nbItems } = useCart();
     </nav>
   </header>
   <Suspense>
-    <div>
-      <RouterView />
-    </div>
+    <RouterView />
     <template #fallback> Loading... </template>
   </Suspense>
 </template>

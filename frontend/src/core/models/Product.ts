@@ -13,6 +13,7 @@ export interface Product {
   categories: Category[];
   Custom_field: any[];
   status: ProductStatus;
+  quantityInStock: number;
 }
 
 export enum ProductStatus {

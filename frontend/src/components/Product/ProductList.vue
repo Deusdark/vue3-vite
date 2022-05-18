@@ -8,6 +8,10 @@ defineProps({
   error: Object as PropType<Object | boolean>,
   isFinished: Boolean,
 });
+
+function titleUpperCase(title: string) {
+  return title.toUpperCase();
+}
 </script>
 
 <template>
@@ -30,7 +34,7 @@ defineProps({
             <h4
               class="mt-1 font-semibold text-base leading-tight truncate text-gray-700 dark:text-white"
             >
-              {{ product.title }} sticker
+              {{ titleUpperCase(product.title) }} sticker
             </h4>
             <div class="mt-1 text-sm text-gray-700 dark:text-slate-400">
               {{ product.description }}
