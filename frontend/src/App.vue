@@ -36,10 +36,18 @@ const { nbItems } = useCart();
       </div>
     </nav>
   </header>
-  <Suspense>
-    <RouterView />
-    <template #fallback> Loading... </template>
-  </Suspense>
+  <main>
+    <RouterView v-slot="{ Component }">
+      <suspense timeout="0">
+        <template #default>
+          <component :is="Component" />
+        </template>
+        <template #fallback>
+          <div>Loading...</div>
+        </template>
+      </suspense>
+    </RouterView>
+  </main>
 </template>
 
 <style>
