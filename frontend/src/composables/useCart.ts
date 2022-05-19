@@ -7,13 +7,8 @@ export function useCart() {
     nbItems.value++;
   }
 
-  function removeItem() {
-    nbItems.value--;
-  }
-
   return {
     nbItems,
     addItem,
-    removeItem,
   };
 }
