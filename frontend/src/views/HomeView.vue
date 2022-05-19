@@ -1,22 +1,12 @@
 <script setup lang="ts">
-import { APISettings } from "@/api/APISettings";
-import type { Product } from "@/core/models/Product";
-import { useFetch } from "@vueuse/core";
+import { useProducts } from "@/composables/useProducts";
+import { useTimeout } from "@vueuse/core";
 import ProductList from "../components/Product/ProductList.vue";
 
-const { error, isFinished, data: products } = await useFetch(
-  APISettings.baseURL + "/products"
-).json<Product[]>();
+const { error, isFinished, data: products } = await useProducts();
 
-function timeoutAsync() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve("ok");
-    }, 2000);
-  });
-}
-
-await timeoutAsync();
+// Simulate loading
+await useTimeout(1000);
 </script>
 
 <template>
